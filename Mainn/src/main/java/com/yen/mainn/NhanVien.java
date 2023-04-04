@@ -7,33 +7,49 @@ package com.yen.mainn;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  *
  * @author DELL
  */
-public class NhanVien extends Person {
-
+public class NhanVien {
     public static int dem;
     private int maNV = ++dem;
+    private String hoTen;
+    private String gioiTinh;
+    private String ngaySinh;
     private String email;
     private List<ThanNhan> tn = new ArrayList<>();
     private List<DuAn> ds = new ArrayList<>();
 
-    public NhanVien(String email, String hoTen, String gioiTinh, String NgaySinh) {
-        super(hoTen, gioiTinh, NgaySinh);
+    
+    public NhanVien(String hoTen, String gioiTinh, String ngaySinh, String email) {
+        this.hoTen = hoTen;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
         this.email = email;
     }
+    
+    
+    public NhanVien() {
+
+    }
+
     public void themTN(ThanNhan e){
         this.tn.add(e);
     }
+
     public void hienThiTN(){
         for(ThanNhan tn : this.tn){
             System.out.println(tn);
         }
     }
-
+    
+    @Override
+    public String toString() {
+            return String.format("Id: %d\nTen: %s\nGioi tinh: %s\nNgay sinh: %s\nEmail: %s\n",
+                maNV, hoTen, gioiTinh, ngaySinh, email); 
+    }
    
     /**
      * @return the email
@@ -77,16 +93,10 @@ public class NhanVien extends Person {
         this.ds = ds;
     }
 
-    /**
-     * @return the maNV
-     */
     public int getMaNV() {
         return maNV;
     }
 
-    /**
-     * @param maNV the maNV to set
-     */
     public void setMaNV(int maNV) {
         this.maNV = maNV;
     }

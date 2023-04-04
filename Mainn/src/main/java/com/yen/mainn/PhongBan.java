@@ -15,7 +15,7 @@ public class PhongBan {
     private int maPhongBan;
     private int tenPhongBan;
     private List<NhanVien> nv = new ArrayList<>();
-   
+
    
     public void themNvDb(NhanVienDacBiet nvdb){
         

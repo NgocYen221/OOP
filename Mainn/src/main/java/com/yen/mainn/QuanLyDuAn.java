@@ -24,22 +24,17 @@ public class QuanLyDuAn {
 
     public void xoaDuAn(List<DuAn> d) {
         for (DuAn da : d) {
-            if (this.ds.size() > 0) {
-                this.ds.remove(da);
-            } else {
-                System.out.println("Khong tim thay Du An can xoa");
-            }
+            this.ds.remove(da);
         }
     }
 
-    public void suaDuAn() {
-        System.out.println("Nhap ma du an");
-        int maDuAn=sc.nextInt();
+      public void suaDuAn() {
+        System.out.println("Nhap ten du an");
+        String tenDA = sc.nextLine();
         boolean KiemTra = false;
-        for (int i = 0; this.ds.size() >= i; i++) {
-            DuAn da = this.ds.get(i);
-            if (da.getMaDuAn() == maDuAn) {
-                sc.nextLine();
+        for (DuAn da : this.ds) {
+            if (da.getTenDuAn().equals(tenDA)) {
+                KiemTra = true;
                 System.out.println("Nhap lai ten du an");
                 String ten = sc.nextLine();
                 da.setTenDuAn(ten);
@@ -55,13 +50,16 @@ public class QuanLyDuAn {
                 System.out.println("Nhap lai kinh phi");
                 int kp = sc.nextInt();
                 da.setKinhPhiDauTu(kp);
-                KiemTra = true;
+                break;
             }
         }
         if (KiemTra) {
+            this.hienThi();
+            System.out.println("Sua thanh cong");
+        } else {
             System.out.println("Khong ton tai du an can sua");
-        }
 
+        }
     }
 
     public List<DuAn> timDuAn(String tuKhoa) {
@@ -81,11 +79,10 @@ public class QuanLyDuAn {
         ds.forEach(s -> System.out.println(s));
     }
 
-    public void nhap() {
-
+    public void nhapDA() {
         System.out.println("Nhap ten du an: ");
         String ten = sc.nextLine();
-        System.out.println("/nThoi gian bat dau ");
+        System.out.println("Thoi gian bat dau ");
         String tgbd = sc.nextLine();
         System.out.println("Thoi gian ket thuc: ");
         String tgkt = sc.nextLine();
@@ -93,7 +90,7 @@ public class QuanLyDuAn {
         int kp = sc.nextInt();
         DuAn da = new DuAn(ten, tgbd, tgkt, kp);
 
-        this.ds.add(da);
+        themDuAn(da);
 
     }
 

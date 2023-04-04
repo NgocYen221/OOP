@@ -10,26 +10,31 @@ import java.util.Date;
  *
  * @author DELL
  */
-public class ThanNhan extends Person {
+public class ThanNhan {
     public static int dem;
     private int maTN = ++dem;
+    private String hoTen;
+    private String gioiTinh;
+    private String ngaySinh;
     private String moiQuanHe;
 
-    public ThanNhan(String moiQuanHe, String hoTen, String gioiTinh, String NgaySinh) {
-        super(hoTen, gioiTinh, NgaySinh);
+    public ThanNhan() {
+    }
+
+    
+    public ThanNhan(String hoTen, String gioiTinh, String ngaySinh, String moiQuanHe) {
+        this.hoTen = hoTen;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
         this.moiQuanHe = moiQuanHe;
     }
+    
 
     @Override
     public String toString() {
-        String s=super.toString();
-        s+= String.format("Moi quan he: %s", moiQuanHe);
-        return s;
-                // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        return String.format("Id: %d\nTen: %s\nGioi tinh: %s\nNgay sinh: %s\nMoi quan he: %s\n",
+                maTN, hoTen, gioiTinh, ngaySinh ,moiQuanHe); 
     }
-
-  
-    
  
     
     /**
@@ -48,6 +53,62 @@ public class ThanNhan extends Person {
      */
     public void setMoiQuanHe(String moiQuanHe) {
         this.moiQuanHe = moiQuanHe;
+    }
+
+    /**
+     * @return the hoTen
+     */
+    public String getHoTen() {
+        return hoTen;
+    }
+
+    /**
+     * @param hoTen the hoTen to set
+     */
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
+    }
+
+    /**
+     * @return the gioiTinh
+     */
+    public String getGioiTinh() {
+        return gioiTinh;
+    }
+
+    /**
+     * @param gioiTinh the gioiTinh to set
+     */
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+
+    /**
+     * @return the NgaySinh
+     */
+    public String getNgaySinh() {
+        return ngaySinh;
+    }
+
+    /**
+     * @param NgaySinh the NgaySinh to set
+     */
+    public void setNgaySinh(String NgaySinh) {
+        this.ngaySinh = NgaySinh;
+    }
+
+    /**
+     * @return the maTN
+     */
+    public int getMaTN() {
+        return maTN;
+    }
+
+    /**
+     * @param maTN the maTN to set
+     */
+    public void setMaTN(int maTN) {
+        this.maTN = maTN;
     }
    
 }

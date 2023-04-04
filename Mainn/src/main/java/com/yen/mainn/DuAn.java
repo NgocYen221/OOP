@@ -35,11 +35,6 @@ public class DuAn {
         this.kinhPhiDauTu = kinhPhiDauTu;
     }
     
-    
-
-  
-
-    
 
     @Override
     public String toString() {
