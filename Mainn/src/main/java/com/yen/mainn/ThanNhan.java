@@ -4,6 +4,8 @@
  */
 package com.yen.mainn;
 
+
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -15,25 +17,31 @@ public class ThanNhan {
     private int maTN = ++dem;
     private String hoTen;
     private String gioiTinh;
-    private String ngaySinh;
+    private Date ngaySinh;
     private String moiQuanHe;
 
     public ThanNhan() {
     }
 
-    
-    public ThanNhan(String hoTen, String gioiTinh, String ngaySinh, String moiQuanHe) {
+    public ThanNhan(String hoTen, String gioiTinh, Date ngaySinh, String moiQuanHe) {
         this.hoTen = hoTen;
         this.gioiTinh = gioiTinh;
         this.ngaySinh = ngaySinh;
         this.moiQuanHe = moiQuanHe;
     }
     
+    public ThanNhan(String hoTen, String gioiTinh, String ngaySinh, String moiQuanHe) throws ParseException {
+        this.hoTen = hoTen;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = CauHinh.f.parse(ngaySinh);
+        this.moiQuanHe = moiQuanHe;
+    }
+    
 
     @Override
     public String toString() {
-        return String.format("Id: %d\nTen: %s\nGioi tinh: %s\nNgay sinh: %s\nMoi quan he: %s\n",
-                maTN, hoTen, gioiTinh, ngaySinh ,moiQuanHe); 
+        return String.format("Ma than nhan: %d\nTen than nhan: %s\nGioi tinh: %s\nNgay sinh: %s\n",
+                this.getMaTN(),this.getHoTen(), this.getGioiTinh(), CauHinh.f.format(this.getNgaySinh()));
     }
  
     
@@ -86,14 +94,14 @@ public class ThanNhan {
     /**
      * @return the NgaySinh
      */
-    public String getNgaySinh() {
+    public Date getNgaySinh() {
         return ngaySinh;
     }
 
     /**
      * @param NgaySinh the NgaySinh to set
      */
-    public void setNgaySinh(String NgaySinh) {
+    public void setNgaySinh(Date NgaySinh) {
         this.ngaySinh = NgaySinh;
     }
 

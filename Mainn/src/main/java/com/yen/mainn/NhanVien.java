@@ -4,7 +4,10 @@
  */
 package com.yen.mainn;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,21 +15,34 @@ import java.util.List;
  *
  * @author DELL
  */
-public class NhanVien {
-    public static int dem;
+public abstract class NhanVien {
+    protected static double luongcb = 100000;
+    private static int dem;
     private int maNV = ++dem;
     private String hoTen;
     private String gioiTinh;
-    private String ngaySinh;
+    private Date ngaySinh;
     private String email;
+    protected String loaiNhanVien;
+    private double heso;
     private List<ThanNhan> tn = new ArrayList<>();
     private List<DuAn> ds = new ArrayList<>();
-
     
-    public NhanVien(String hoTen, String gioiTinh, String ngaySinh, String email) {
+    {
+        loaiNhanVien = "NhanVienThuong";
+    }
+    
+    public NhanVien(String hoTen, String gioiTinh, Date ngaySinh, String email) {
         this.hoTen = hoTen;
         this.gioiTinh = gioiTinh;
         this.ngaySinh = ngaySinh;
+        this.email = email;
+    }
+    
+    public NhanVien(String hoTen, String gioiTinh, String ngaySinh, String email) throws ParseException {
+        this.hoTen = hoTen;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = CauHinh.f.parse(ngaySinh);
         this.email = email;
     }
     
@@ -34,23 +50,106 @@ public class NhanVien {
     public NhanVien() {
 
     }
+    
+    public int tinhTuoi(){
+        Calendar c = Calendar.getInstance();
+        c.setTime(getNgaySinh());
+        Calendar today = Calendar.getInstance();
+        int tuoi = today.get(Calendar.YEAR)- c.get(Calendar.YEAR);
+        if (today.get(Calendar.MONTH)<c.get(Calendar.MONTH)) {
+            --tuoi;
+        }else if(today.get(Calendar.MONTH)==c.get(Calendar.MONTH)&&
+                today.get(Calendar.DAY_OF_MONTH)<c.get(Calendar.DAY_OF_MONTH)){
+            --tuoi;
+        }
+        return tuoi;
+    }
+    
+    public void themDA(DuAn... d) {
+        ds.addAll(Arrays.asList(d));
+    }
+    
+    public void hienThiDA() {
+        ds.forEach(s -> System.out.println(s));
+    }
 
     public void themTN(ThanNhan e){
-        this.tn.add(e);
+        this.getTn().add(e);
     }
 
     public void hienThiTN(){
-        for(ThanNhan tn : this.tn){
+        for(ThanNhan tn : this.getTn()){
             System.out.println(tn);
         }
     }
     
+    public abstract double layHeSo();
+    public abstract double tinhLuong();
+    
     @Override
     public String toString() {
-            return String.format("Id: %d\nTen: %s\nGioi tinh: %s\nNgay sinh: %s\nEmail: %s\n",
-                maNV, hoTen, gioiTinh, ngaySinh, email); 
+        return String.format("Ma nhan vien: %d\nTen NV: %s\nGioi tinh: %s\nNgay sinh: %s\nEmail: %s\n",
+                this.getMaNV(), this.getHoTen(), this.getGioiTinh(),
+                CauHinh.f.format(this.getNgaySinh()), this.getEmail());
+                
     }
-   
+
+    /**
+     * @return the maNV
+     */
+    public int getMaNV() {
+        return maNV;
+    }
+
+    /**
+     * @param maNV the maNV to set
+     */
+    public void setMaNV(int maNV) {
+        this.maNV = maNV;
+    }
+
+    /**
+     * @return the hoTen
+     */
+    public String getHoTen() {
+        return hoTen;
+    }
+
+    /**
+     * @param hoTen the hoTen to set
+     */
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
+    }
+
+    /**
+     * @return the gioiTinh
+     */
+    public String getGioiTinh() {
+        return gioiTinh;
+    }
+
+    /**
+     * @param gioiTinh the gioiTinh to set
+     */
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+
+    /**
+     * @return the ngaySinh
+     */
+    public Date getNgaySinh() {
+        return ngaySinh;
+    }
+
+    /**
+     * @param ngaySinh the ngaySinh to set
+     */
+    public void setNgaySinh(Date ngaySinh) {
+        this.ngaySinh = ngaySinh;
+    }
+
     /**
      * @return the email
      */
@@ -93,11 +192,32 @@ public class NhanVien {
         this.ds = ds;
     }
 
-    public int getMaNV() {
-        return maNV;
+    /**
+     * @return the heso
+     */
+    public double getHeso() {
+        return heso;
     }
 
-    public void setMaNV(int maNV) {
-        this.maNV = maNV;
+    /**
+     * @param heso the heso to set
+     */
+    public void setHeso(double heso) {
+        this.heso = heso;
     }
+
+    /**
+     * @return the loaiNhanVien
+     */
+    public String getLoaiNhanVien() {
+        return loaiNhanVien;
+    }
+
+    /**
+     * @param loaiNhanVien the loaiNhanVien to set
+     */
+    public void setLoaiNhanVien(String loaiNhanVien) {
+        this.loaiNhanVien = loaiNhanVien;
+    }
+
 }
