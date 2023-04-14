@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class CauHinh {
     public static final Scanner sc = new Scanner(System.in);
     public static SimpleDateFormat  f = new SimpleDateFormat("dd/MM/yyyy" );
+    
     public static int ktYear(int year) {
         if (year <= 1900 || year > 2222) return -1;
         if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))

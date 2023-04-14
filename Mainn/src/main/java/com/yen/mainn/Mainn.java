@@ -19,6 +19,7 @@ public class Mainn {
     public static void main(String[] args) throws ParseException {
         QuanLyDuAn qlda = new QuanLyDuAn();
         QuanLyNhanVien qlnv = new QuanLyNhanVien();
+        QuanLyPhongBan qlpb = new QuanLyPhongBan();
         DuAn da = new DuAn("A", "22/01/2002", "22/01/2003", 10);
         DuAn da0 = new DuAn("A", "22/12/2002", "22/01/2003", 20);
         DuAn da1 = new DuAn("B", "22/02/2002", "22/02/2003", 30);
@@ -398,9 +399,13 @@ public class Mainn {
                                 break;
                             case 2:
                                 // Tim kiem nhan vien theo ngay sinh
+                                System.out.println("Nhap ngay sinh theo dinh dang dd/MM/yy:");
+                                String date = CauHinh.sc.nextLine();
+                                qlnv.timKiemNhanVienTheoNgaySinh(date);
                                 break;
                             case 3:
                                 // Tim kiem nhan vien theo phong ban
+                                qlpb.timKiemNhanVienTheoPB();
                                 break;
                             case 4:
                                 // Tim kiem nhan vien theo do tuoi

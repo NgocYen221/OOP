@@ -161,7 +161,27 @@ public class QuanLyNhanVien {
             }
         }
     }
-
+    
+    public void timKiemNhanVienTheoNgaySinh(String date) {
+        CauHinh.f.setLenient(false);
+        boolean ktra = true;
+        while (ktra) {
+            try {
+                CauHinh.f.parse(date);
+                QuanLyNhanVien ketQua = new QuanLyNhanVien();
+                for (NhanVien nhanVien : this.nv) {
+                    if (CauHinh.f.format(nhanVien.getNgaySinh()).equals(date)) {
+                        ketQua.nv.add(nhanVien);
+                    }
+                }
+                ketQua.hienThiDSNV();
+                ktra=false;
+            } catch (ParseException ex) {
+                System.out.println("Nhap sai nhap lai");
+                date = CauHinh.sc.nextLine();
+            }
+        }
+    }
 
     /**
      * @return the nv

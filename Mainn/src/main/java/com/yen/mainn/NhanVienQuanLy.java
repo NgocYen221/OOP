@@ -15,19 +15,25 @@ import javax.xml.crypto.Data;
  * @author DELL
  */
 public class NhanVienQuanLy extends NhanVien{
-    private Data ngayNhamChucData;
+    private Date ngayNhamChuc;
     private int demSoPhongBan=0;
     private List<PhongBan> pb = new ArrayList<>();
     
-    public NhanVienQuanLy(String hoTen, String gioiTinh, String ngaySinh, String email, Data ngayNhamChucData) throws ParseException {
+    public NhanVienQuanLy(String hoTen, String gioiTinh, String ngaySinh, String email, String ngayNhamChucData) throws ParseException {
         super(hoTen, gioiTinh, ngaySinh, email);
-        this.ngayNhamChucData = ngayNhamChucData;
+        this.ngayNhamChuc = CauHinh.f.parse(ngayNhamChucData);
     }
 
-    public NhanVienQuanLy(String hoTen, String gioiTinh, Date ngaySinh, String email, Data ngayNhamChucData) {
+    public NhanVienQuanLy(String hoTen, String gioiTinh, Date ngaySinh, String email, Date ngayNhamChucData) {
         super(hoTen, gioiTinh, ngaySinh, email);
-        this.ngayNhamChucData = ngayNhamChucData;
+        this.ngayNhamChuc = ngayNhamChucData;
     }
+    
+    @Override
+    public String toString() {
+        return String.format("%s\nNgay nham chuc: %s\n ",super.toString(), CauHinh.f.format(ngayNhamChuc));
+    }
+    
 
     @Override
     public double layHeSo() {
@@ -36,8 +42,6 @@ public class NhanVienQuanLy extends NhanVien{
         System.out.print("Luong: ");
         return heso;//To change body of generated methods, choose Tools | Templates.
     }
-
-    
 
     @Override
     public double tinhLuong() {
@@ -55,15 +59,15 @@ public class NhanVienQuanLy extends NhanVien{
     /**
      * @return the ngayNhamChucData
      */
-    public Data getNgayNhamChucData() {
-        return ngayNhamChucData;
+    public Date getNgayNhamChucData() {
+        return ngayNhamChuc;
     }
 
     /**
      * @param ngayNhamChucData the ngayNhamChucData to set
      */
-    public void setNgayNhamChucData(Data ngayNhamChucData) {
-        this.ngayNhamChucData = ngayNhamChucData;
+    public void setNgayNhamChucData(Date ngayNhamChucData) {
+        this.ngayNhamChuc = ngayNhamChucData;
     }
 
     /**
