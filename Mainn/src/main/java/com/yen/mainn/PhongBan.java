@@ -15,28 +15,14 @@ public class PhongBan {
     public static int dem;
     private int maPhongBan = ++dem;
     private String tenPhongBan;
-    private NhanVien nvql;
+    private NhanVienQuanLy nvql;
     private List<NhanVien> nv = new ArrayList<>();
-
-    /**
-     * @return the nvql
-     */
-    public NhanVien getNvql() {
-        return nvql;
-    }
-
-    /**
-     * @param nvql the nvql to set
-     */
-    public void setNvql(NhanVien nvql) {
-        this.nvql = nvql;
-    }
 
     public PhongBan(String tenPhongBan) {
         this.tenPhongBan = tenPhongBan;
     }
-   
-   
+
+
     public void themNVQL(NhanVienQuanLy nvql){
         if(nvql.getPb().size()<2){
             this.setNvql(nvql);
@@ -45,25 +31,44 @@ public class PhongBan {
             System.out.println("Khong the them nhan vien vi nhan vien chi duoc quan ly toi da 2 phong ban");
         }
     }
-    
+
     public void themNV(NhanVien n){
-        
         this.getNv().add(n);
     }
-     public void hienThiNv(){
-         System.out.println("Nhan vien quan li:\n"+nvql);
-         for(NhanVien nhanVien: this.getNv())
-         {
-             System.out.println(nhanVien);
-         }
-     }
+
+    public void hienThiNv(){
+        System.out.println("Nhan vien quan li:\n"+nvql);
+        for(NhanVien nhanVien: this.getNv())
+        {
+            System.out.println(nhanVien);
+        }
+    }
 
     @Override
     public String toString() {
-        return String.format("Ma phong ban: %d\nTen phong ban : %s\n", 
+        return String.format("Ma phong ban: %d\nTen phong ban : %s\n",
                 this.getMaPhongBan(),this.getTenPhongBan())+"NVQL"+nvql;
     }
-    
+
+
+
+
+    /**
+     * @return the nvql
+     */
+    public NhanVienQuanLy getNvql() {
+        return nvql;
+    }
+
+    /**
+     * @param nvql the nvql to set
+     */
+    public void setNvql(NhanVienQuanLy nvql) {
+        this.nvql = nvql;
+    }
+
+
+
     
 
     /**

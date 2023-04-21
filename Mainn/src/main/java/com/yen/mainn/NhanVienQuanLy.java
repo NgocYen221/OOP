@@ -33,7 +33,6 @@ public class NhanVienQuanLy extends NhanVien{
     public String toString() {
         return String.format("%s\nNgay nham chuc: %s\n ",super.toString(), CauHinh.f.format(ngayNhamChuc));
     }
-    
 
     @Override
     public double layHeSo() {

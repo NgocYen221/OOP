@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
  * @author DELL
  */
 public class QuanLyDuAn {
-
     private List<DuAn> ds = new ArrayList<>();
 
     public void themDuAn(DuAn... d) {
@@ -54,7 +53,7 @@ public class QuanLyDuAn {
                 da.setTgKetThuc(tgkt);
 
                 System.out.println("Nhap lai kinh phi");
-                int kp = CauHinh.sc.nextInt();
+                int kp = Integer.parseInt(CauHinh.sc.nextLine());
                 da.setKinhPhiDauTu(kp);
                 break;
             }
@@ -85,10 +84,11 @@ public class QuanLyDuAn {
     }
     
     public boolean isDAinDSDA(String ten) {
-        for (DuAn duan : ds) {
-            if (duan.getTenDuAn().equalsIgnoreCase(ten))
-                return false;
-        }
+            for (DuAn duan : ds) {
+                if (duan.getTenDuAn().equals(ten)) {
+                    return false;
+                }
+            }
         return true;
     }
     
@@ -109,7 +109,12 @@ public class QuanLyDuAn {
     }
         
     public void hienThi() {
-        ds.forEach(s -> System.out.println(s));
+        ds.forEach(s -> {
+            System.out.print(s);
+            System.out.println("=====Danh sach nhan vien cua du an=====");
+            s.hienThiNV();
+            System.out.println();
+        });
     }
 
     /**

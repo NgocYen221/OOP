@@ -29,7 +29,8 @@ public class DuAn {
     public DuAn() {
     }
 
-    public DuAn(String tenDuAn, Date tgBatDau, Date tgKetThuc, int kinhPhiDauTu) {
+    public DuAn(String tenDuAn, Date tgBatDau, Date tgKetThuc, int kinhPhiDauTu, List<NhanVien> nv) {
+        this.nv = nv;
         if (nv.size() >= 5 && nv.size() <= 10) {
             this.tenDuAn = tenDuAn;
             this.tgBatDau = tgBatDau;
@@ -48,8 +49,11 @@ public class DuAn {
         }
     }
     
-    public void themNV(NhanVien... nv) {
-        this.nv.addAll(Arrays.asList(nv));
+    public void themNV(NhanVien nv) {
+        if (this.nv.size() <=10)
+            this.nv.add(nv);
+        else
+            System.out.println("Da du nhan vien cho du an nay");
     }
     
     public boolean isNVinDA(NhanVien n) {
@@ -83,9 +87,11 @@ public class DuAn {
     @Override
     public String toString() {
         return String.format("Ma du an: %d\nTen du an: %s\nThoi gian bat dau: %s\n"
-                + "Thoi gian ket thuc: %s\nKinh phi dau tu: %d\n", this.getMaDuAn(), this.tenDuAn, CauHinh.f.format(this.tgBatDau), 
-                CauHinh.f.format(this.tgKetThuc), this.kinhPhiDauTu);
+                + "Thoi gian ket thuc: %s\nKinh phi dau tu: %d\n",
+                this.getMaDuAn(), this.tenDuAn, CauHinh.f.format(this.getTgBatDau()),
+                CauHinh.f.format(this.getTgKetThuc()), this.kinhPhiDauTu);
     }
+
 
     /**
      * @return the tenDuAn

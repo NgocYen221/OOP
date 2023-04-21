@@ -36,7 +36,7 @@ public class QuanLyNhanVien {
         String hoTen = CauHinh.sc.nextLine();
         System.out.println("Gioi tinh: ");
         String gioiTinh = CauHinh.sc.nextLine();
-        System.out.println("Ngay sinh: ");
+        System.out.println("Ngay sinh");
         Date ngaySinh;
         String nSinh;
         int ngay, thang, nam, dem = 0;
@@ -93,45 +93,57 @@ public class QuanLyNhanVien {
     
     public void timKiemNhanVienTheoTuoi() {
         int min = 0, max = 0, tuoi, s;
-        System.out.println("Ban muon tim theo tuoi hay do tuoi");
-        System.out.println("1:Theo tuoi  \n2:Theo do tuoi");
-        s = Integer.parseInt(CauHinh.sc.nextLine());
-        Boolean ktra = false;
-        int dem = 0;
-        QuanLyNhanVien ketqua = new QuanLyNhanVien();
-        if (s == 1) {
-            System.out.println("Nhap tuoi ban muon tim");
-            min = Integer.parseInt(CauHinh.sc.nextLine());
-            max = min;
-        } else {
-            do {
-                if (dem > 0) {
-                    System.out.println("Nhap sai nhap lai");
-                }
-                System.out.print("Nhap bien do tuoi nho:");
-                min = CauHinh.sc.nextInt();
-                System.out.print("\nNhap bien do tuoi lon:");
-                max = CauHinh.sc.nextInt();
-                dem++;
+            System.out.println("Ban muon tim theo tuoi hay do tuoi");
+            System.out.println("1:Theo tuoi  \n2:Theo do tuoi");
+            s = Integer.parseInt(CauHinh.sc.nextLine());
+            Boolean ktra = false;
+            int dem = 0;
+            QuanLyNhanVien ketqua = new QuanLyNhanVien();
+            if (s == 1) {
+                System.out.println("Nhap tuoi ban muon tim");
+                min = Integer.parseInt(CauHinh.sc.nextLine());
+                max = min;
+            } else if(s==2){
+                do {
+                    if (dem > 0) {
+                        System.out.println("Nhap sai nhap lai");
+                    }
+                    System.out.print("Nhap bien do tuoi nho:");
+                    min = Integer.parseInt(CauHinh.sc.nextLine());
+                    System.out.print("\nNhap bien do tuoi lon:");
+                    max = Integer.parseInt(CauHinh.sc.nextLine());
+                    dem++;
 
-            } while (min > max);
-        }
-        for (NhanVien nhanVien : nv) {
-            if (nhanVien.tinhTuoi() >= min && nhanVien.tinhTuoi() <= max) {
-                ketqua.nv.add(nhanVien);
-                ktra = true;
+                } while (min > max);
             }
-        }
-        if (ktra) {
-            ketqua.hienThiDSNV();
-            System.out.println("Tim thanh cong");
-        } else {
-            System.out.println("Khong tim thay nhan vien o do tuoi nay");
-        }
+            for (NhanVien nhanVien : nv) {
+                if (nhanVien.tinhTuoi() >= min && nhanVien.tinhTuoi() <= max) {
+                    ketqua.nv.add(nhanVien);
+                    ktra = true;
+                }
+            }
+            if (ktra) {
+                ketqua.hienThiDSNV();
+                System.out.println("Tim thanh cong");
+            } else {
+                System.out.println("Khong tim thay nhan vien o do tuoi nay");
+            }
     }
     
     public void hienThiDSNV() {
-        nv.forEach(s -> System.out.println(s));
+        nv.forEach(s -> {
+            System.out.println(s);
+
+            if (!s.getDs().isEmpty()) {
+                System.out.println("=====Danh sach du an=====");
+                s.hienthiDSDA();
+            }
+            if (!s.getTn().isEmpty()) {
+                System.out.println("=====Danh sach than nhan=====");
+                s.hienThiTN();
+            }
+            System.out.println();
+        });
     }
 
     public void xuatTn() {

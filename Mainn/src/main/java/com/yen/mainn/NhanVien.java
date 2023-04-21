@@ -45,12 +45,10 @@ public abstract class NhanVien {
         this.ngaySinh = CauHinh.f.parse(ngaySinh);
         this.email = email;
     }
-    
-    
-    public NhanVien() {
 
+    public NhanVien() {
     }
-    
+
     public int tinhTuoi(){
         Calendar c = Calendar.getInstance();
         c.setTime(getNgaySinh());
@@ -69,10 +67,6 @@ public abstract class NhanVien {
         if  (dsda.size() <=3)
             dsda.add(d);
     }
-    
-    public void hienThiDA() {
-        dsda.forEach(s -> System.out.println(s));
-    }
 
     public void themTN(ThanNhan e){
         this.getTn().add(e);
@@ -85,6 +79,7 @@ public abstract class NhanVien {
     }
     
     public abstract double layHeSo();
+
     public abstract double tinhLuong();
     
     @Override
@@ -92,7 +87,10 @@ public abstract class NhanVien {
         return String.format("Ma nhan vien: %d\nTen NV: %s\nGioi tinh: %s\nNgay sinh: %s\nEmail: %s\n",
                 this.getMaNV(), this.getHoTen(), this.getGioiTinh(),
                 CauHinh.f.format(this.getNgaySinh()), this.getEmail());
-                
+    }
+
+    public void hienthiDSDA() {
+        dsda.forEach(s -> System.out.println(s));
     }
 
     /**
