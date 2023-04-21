@@ -55,7 +55,14 @@ public class DuAn {
         else
             System.out.println("Da du nhan vien cho du an nay");
     }
-    
+
+    public void xoaNV(NhanVien nv) {
+        this.nv.remove(nv);
+    }
+
+    public void xoaNgQL() { this.nguoiQL = null; };
+
+    //Khong co nhan vien thi tra ve true
     public boolean isNVinDA(NhanVien n) {
         for (NhanVien nhanvien : nv)
             if (nhanvien.getMaNV() == n.getMaNV())
@@ -85,11 +92,15 @@ public class DuAn {
     
     public void hienThiNV() {
         this.nv.forEach(s -> {
-            System.out.println(s);
-            if (nguoiQL != null) {
-                System.out.println("Nguoi chu nhiem du an: ");
-                System.out.println(this.nguoiQL);
-            }
+            if (nguoiQL == null)
+                System.out.println(s);
+            else
+                if (nguoiQL.getMaNV() == s.getMaNV()) {
+                    System.out.println("Nguoi chu nhiem du an: ");
+                    System.out.println(s);
+                }
+                else
+                    System.out.println(s);
 
         });
     }
