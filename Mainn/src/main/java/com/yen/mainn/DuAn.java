@@ -23,24 +23,29 @@ public class DuAn {
     private Date tgBatDau;
     private Date tgKetThuc;
     private int kinhPhiDauTu;
-    private NhanVien nguoiQL;
+    private NhanVien nguoiQL = null;
     private List<NhanVien> nv = new ArrayList<>();
 
     public DuAn() {
     }
 
     public DuAn(String tenDuAn, Date tgBatDau, Date tgKetThuc, int kinhPhiDauTu) {
-        this.tenDuAn = tenDuAn;
-        this.tgBatDau = tgBatDau;
-        this.tgKetThuc = tgKetThuc;
-        this.kinhPhiDauTu = kinhPhiDauTu;
+        if (nv.size() >= 5 && nv.size() <= 10) {
+            this.tenDuAn = tenDuAn;
+            this.tgBatDau = tgBatDau;
+            this.tgKetThuc = tgKetThuc;
+            this.kinhPhiDauTu = kinhPhiDauTu;
+        }
     }    
 
-    public DuAn(String tenDuAn, String tgBatDau, String tgKetThuc, int kinhPhiDauTu) throws ParseException {
-        this.tenDuAn = tenDuAn;
-        this.tgBatDau = CauHinh.f.parse(tgBatDau);
-        this.tgKetThuc = CauHinh.f.parse(tgKetThuc);
-        this.kinhPhiDauTu = kinhPhiDauTu;
+    public DuAn(String tenDuAn, String tgBatDau, String tgKetThuc, int kinhPhiDauTu, List<NhanVien> nv) throws ParseException {
+        this.nv = nv;
+        if (nv.size() >= 5 && nv.size() <= 10) {
+            this.tenDuAn = tenDuAn;
+            this.tgBatDau = CauHinh.f.parse(tgBatDau);
+            this.tgKetThuc = CauHinh.f.parse(tgKetThuc);
+            this.kinhPhiDauTu = kinhPhiDauTu;
+        }
     }
     
     public void themNV(NhanVien... nv) {
@@ -52,6 +57,23 @@ public class DuAn {
             if (nhanvien.getMaNV() == n.getMaNV())
                 return false;
         return true;
+    }
+    
+    public void chonNguoiQL() {
+        System.out.println("======Danh sach nhan vien cua du an");
+        hienThiNV();
+        int maNV;
+        do {
+            System.out.println("Ban chon ma nhan vien: ");
+            maNV = Integer.parseInt(CauHinh.sc.nextLine());
+            for (NhanVien nhanvien : nv)
+                if (nhanvien.getMaNV() == maNV) {
+                    this.nguoiQL = nhanvien;
+                    System.out.println("Them nguoi quan ly du an thanh cong");
+                }
+                else 
+                    System.out.println("Khong co nhan vien nay de lam nguoi quan ly du an");
+        } while (nguoiQL != null);
     }
     
     public void hienThiNV() {

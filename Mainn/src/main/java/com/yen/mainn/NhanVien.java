@@ -26,7 +26,7 @@ public abstract class NhanVien {
     protected String loaiNhanVien;
     private double heso;
     private List<ThanNhan> tn = new ArrayList<>();
-    private List<DuAn> ds = new ArrayList<>();
+    private List<DuAn> dsda = new ArrayList<>();
     
     {
         loaiNhanVien = "NhanVienThuong";
@@ -65,12 +65,13 @@ public abstract class NhanVien {
         return tuoi;
     }
     
-    public void themDA(DuAn... d) {
-        ds.addAll(Arrays.asList(d));
+    public void themDA(DuAn d) {
+        if  (dsda.size() <=3)
+            dsda.add(d);
     }
     
     public void hienThiDA() {
-        ds.forEach(s -> System.out.println(s));
+        dsda.forEach(s -> System.out.println(s));
     }
 
     public void themTN(ThanNhan e){
@@ -182,14 +183,14 @@ public abstract class NhanVien {
      * @return the ds
      */
     public List<DuAn> getDs() {
-        return ds;
+        return dsda;
     }
 
     /**
      * @param ds the ds to set
      */
     public void setDs(List<DuAn> ds) {
-        this.ds = ds;
+        this.dsda = ds;
     }
 
     /**

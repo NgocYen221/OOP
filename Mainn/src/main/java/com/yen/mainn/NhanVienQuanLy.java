@@ -48,6 +48,14 @@ public class NhanVienQuanLy extends NhanVien{
         return luongcb * layHeSo();//To change body of generated methods, choose Tools | Templates.
     }
     
+    public void themPB(PhongBan p) {
+        if (pb.size() <= 2) {
+            pb.add(p);
+        }
+        else 
+            System.out.println("Danh sach phong ban da du!!!");
+    }
+    
     
     
     
