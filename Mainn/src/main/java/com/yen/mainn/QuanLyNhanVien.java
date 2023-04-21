@@ -6,6 +6,9 @@ package com.yen.mainn;
 
 
 import java.text.ParseException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -73,10 +76,6 @@ public class QuanLyNhanVien {
         return null;
     }
     
-//    public boolean suaHeSo() {
-//        
-//    }
-    
     public List<NhanVien> timKiemNhanVienTheoLoai(String loai) {
         return this.nv.stream().filter(s -> {
             Class c;
@@ -90,45 +89,93 @@ public class QuanLyNhanVien {
             return false;
         }).collect(Collectors.toList());
     }
-    
+
+    public NhanVien hienThiDSNVQL(String ten) {
+        List<NhanVien> dsnvql = timKiemNhanVienTheoLoai("NhanVienQuanLy");
+        for (NhanVien n:dsnvql) {
+            if (n.getHoTen().equals(ten))
+                return n;
+        }
+        return null;
+    }
+
     public void timKiemNhanVienTheoTuoi() {
         int min = 0, max = 0, tuoi, s;
+        do {
             System.out.println("Ban muon tim theo tuoi hay do tuoi");
-            System.out.println("1:Theo tuoi  \n2:Theo do tuoi");
+            System.out.println("1:Theo tuoi  \n2:Theo do tuoi \nSo bat ki:Thoat");
             s = Integer.parseInt(CauHinh.sc.nextLine());
-            Boolean ktra = false;
-            int dem = 0;
-            QuanLyNhanVien ketqua = new QuanLyNhanVien();
-            if (s == 1) {
-                System.out.println("Nhap tuoi ban muon tim");
-                min = Integer.parseInt(CauHinh.sc.nextLine());
-                max = min;
-            } else if(s==2){
-                do {
-                    if (dem > 0) {
-                        System.out.println("Nhap sai nhap lai");
-                    }
-                    System.out.print("Nhap bien do tuoi nho:");
+            if (s == 1 || s == 2) {
+                int dem = 0;
+                QuanLyNhanVien ketqua = new QuanLyNhanVien();
+                if (s == 1) {
+                    System.out.println("Nhap tuoi ban muon tim");
                     min = Integer.parseInt(CauHinh.sc.nextLine());
-                    System.out.print("\nNhap bien do tuoi lon:");
-                    max = Integer.parseInt(CauHinh.sc.nextLine());
-                    dem++;
-
-                } while (min > max);
-            }
-            for (NhanVien nhanVien : nv) {
-                if (nhanVien.tinhTuoi() >= min && nhanVien.tinhTuoi() <= max) {
-                    ketqua.nv.add(nhanVien);
-                    ktra = true;
+                    max = min;
+                } else if (s == 2) {
+                    do {
+                        if (dem > 0) {
+                            System.out.println("Nhap sai nhap lai");
+                        }
+                        System.out.print("Nhap bien do tuoi nho:");
+                        min = Integer.parseInt(CauHinh.sc.nextLine());
+                        System.out.print("\nNhap bien do tuoi lon:");
+                        max = Integer.parseInt(CauHinh.sc.nextLine());
+                        dem++;
+                    } while (min > max);
+                }
+                for (NhanVien nhanVien : nv) {
+                    if (nhanVien.tinhTuoi() >= min && nhanVien.tinhTuoi() <= max) {
+                        ketqua.nv.add(nhanVien);
+                    }
+                }
+                if (!ketqua.nv.isEmpty()) {
+                    ketqua.hienThiDSNV();
+                } else {
+                    System.out.println("\nKhong tim thay nhan vien o do tuoi nay\n");
                 }
             }
-            if (ktra) {
-                ketqua.hienThiDSNV();
-                System.out.println("Tim thanh cong");
-            } else {
-                System.out.println("Khong tim thay nhan vien o do tuoi nay");
-            }
+        } while (s == 1 || s == 2);
     }
+    
+//    public void timKiemNhanVienTheoTuoi() {
+//        int min = 0, max = 0, tuoi, s;
+//            System.out.println("Ban muon tim theo tuoi hay do tuoi");
+//            System.out.println("1:Theo tuoi  \n2:Theo do tuoi");
+//            s = Integer.parseInt(CauHinh.sc.nextLine());
+//            Boolean ktra = false;
+//            int dem = 0;
+//            QuanLyNhanVien ketqua = new QuanLyNhanVien();
+//            if (s == 1) {
+//                System.out.println("Nhap tuoi ban muon tim");
+//                min = Integer.parseInt(CauHinh.sc.nextLine());
+//                max = min;
+//            } else if(s==2){
+//                do {
+//                    if (dem > 0) {
+//                        System.out.println("Nhap sai nhap lai");
+//                    }
+//                    System.out.print("Nhap bien do tuoi nho:");
+//                    min = Integer.parseInt(CauHinh.sc.nextLine());
+//                    System.out.print("\nNhap bien do tuoi lon:");
+//                    max = Integer.parseInt(CauHinh.sc.nextLine());
+//                    dem++;
+//
+//                } while (min > max);
+//            }
+//            for (NhanVien nhanVien : nv) {
+//                if (nhanVien.tinhTuoi() >= min && nhanVien.tinhTuoi() <= max) {
+//                    ketqua.nv.add(nhanVien);
+//                    ktra = true;
+//                }
+//            }
+//            if (ktra) {
+//                ketqua.hienThiDSNV();
+//                System.out.println("Tim thanh cong");
+//            } else {
+//                System.out.println("Khong tim thay nhan vien o do tuoi nay");
+//            }
+//    }
     
     public void hienThiDSNV() {
         nv.forEach(s -> {
@@ -193,6 +240,34 @@ public class QuanLyNhanVien {
                 date = CauHinh.sc.nextLine();
             }
         }
+    }
+
+    public void xemDACuaMotNVDangThucHien() {
+        System.out.print("Nhap ma nhan vien");
+        int maNV = CauHinh.sc.nextInt();
+        for (NhanVien nhanVien : this.nv) {
+            if (nhanVien.getMaNV() == maNV) {
+                for (DuAn duAn : nhanVien.getDs()) {
+                    // Múi giờ mặc định của hệ thống
+                    ZoneId zoneId = ZoneId.systemDefault();
+                    // Chuyển ngày bắt đầu từ date sang localdate
+                    Instant instant = duAn.getTgBatDau().toInstant();
+                    LocalDate tgBatDau = instant.atZone(zoneId).toLocalDate();
+                    // Chuyển ngày bắt đầu từ date sang localdate
+                    instant = duAn.getTgKetThuc().toInstant();
+                    LocalDate tgKetThuc = instant.atZone(zoneId).toLocalDate();
+                    //Lấy ngày hiện tại
+                    LocalDate ngayHienTai = LocalDate.now();
+
+                    if (ngayHienTai.isAfter(tgBatDau) &&ngayHienTai.isBefore(tgKetThuc)) {
+                        System.out.println(duAn);
+                    }
+                }
+                return;
+            }
+
+        }
+        System.out.print("Khong tim thay");
     }
 
     /**

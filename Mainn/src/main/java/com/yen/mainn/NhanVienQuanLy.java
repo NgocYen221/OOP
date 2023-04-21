@@ -15,18 +15,16 @@ import javax.xml.crypto.Data;
  * @author DELL
  */
 public class NhanVienQuanLy extends NhanVien{
-    private Date ngayNhamChuc;
+    private Date ngayNhamChuc = null;
     private int demSoPhongBan=0;
     private List<PhongBan> pb = new ArrayList<>();
     
-    public NhanVienQuanLy(String hoTen, String gioiTinh, String ngaySinh, String email, String ngayNhamChucData) throws ParseException {
+    public NhanVienQuanLy(String hoTen, String gioiTinh, String ngaySinh, String email) throws ParseException {
         super(hoTen, gioiTinh, ngaySinh, email);
-        this.ngayNhamChuc = CauHinh.f.parse(ngayNhamChucData);
     }
 
-    public NhanVienQuanLy(String hoTen, String gioiTinh, Date ngaySinh, String email, Date ngayNhamChucData) {
+    public NhanVienQuanLy(String hoTen, String gioiTinh, Date ngaySinh, String email) {
         super(hoTen, gioiTinh, ngaySinh, email);
-        this.ngayNhamChuc = ngayNhamChucData;
     }
     
     @Override
@@ -49,13 +47,19 @@ public class NhanVienQuanLy extends NhanVien{
     
     public void themPB(PhongBan p) {
         if (pb.size() <= 2) {
+            this.ngayNhamChuc = new Date();
             pb.add(p);
         }
         else 
             System.out.println("Danh sach phong ban da du!!!");
     }
     
-    
+    public void hienthiDSPB() {
+        pb.forEach(s -> {
+            System.out.print(s);
+            System.out.println("Ngay nhan chuc: " + CauHinh.f.format(ngayNhamChuc));
+        });
+    }
     
     
     

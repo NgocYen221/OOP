@@ -67,21 +67,31 @@ public class DuAn {
         System.out.println("======Danh sach nhan vien cua du an");
         hienThiNV();
         int maNV;
+        boolean co = false;
         do {
             System.out.println("Ban chon ma nhan vien: ");
             maNV = Integer.parseInt(CauHinh.sc.nextLine());
             for (NhanVien nhanvien : nv)
                 if (nhanvien.getMaNV() == maNV) {
                     this.nguoiQL = nhanvien;
-                    System.out.println("Them nguoi quan ly du an thanh cong");
+                    co = true;
                 }
-                else 
-                    System.out.println("Khong co nhan vien nay de lam nguoi quan ly du an");
-        } while (nguoiQL != null);
+            if (co == false)
+                System.out.println("Khong co ma nguoi quan ly du an de chon");
+            else
+                System.out.println("Them nguoi quan ly du an thanh cong");
+        } while (nguoiQL == null);
     }
     
     public void hienThiNV() {
-        this.nv.forEach(s -> System.out.println(s));
+        this.nv.forEach(s -> {
+            System.out.println(s);
+            if (nguoiQL != null) {
+                System.out.println("Nguoi chu nhiem du an: ");
+                System.out.println(this.nguoiQL);
+            }
+
+        });
     }
 
     @Override

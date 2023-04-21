@@ -5,6 +5,7 @@
 package com.yen.mainn;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class PhongBan {
     public static int dem;
     private int maPhongBan = ++dem;
     private String tenPhongBan;
-    private NhanVienQuanLy nvql;
+    private NhanVienQuanLy nvql = null;
     private List<NhanVien> nv = new ArrayList<>();
 
     public PhongBan(String tenPhongBan) {
@@ -24,10 +25,12 @@ public class PhongBan {
 
 
     public void themNVQL(NhanVienQuanLy nvql){
-        if(nvql.getPb().size()<2){
-            this.setNvql(nvql);
+        if (this.nvql == null)
+            if(nvql.getPb().size()<2) {
+                this.setNvql(nvql);
             nvql.getPb().add(this);
-        }else{
+            nvql.setNgayNhamChucData(new Date());
+        } else {
             System.out.println("Khong the them nhan vien vi nhan vien chi duoc quan ly toi da 2 phong ban");
         }
     }
@@ -47,7 +50,7 @@ public class PhongBan {
     @Override
     public String toString() {
         return String.format("Ma phong ban: %d\nTen phong ban : %s\n",
-                this.getMaPhongBan(),this.getTenPhongBan())+"NVQL"+nvql;
+                this.getMaPhongBan(),this.getTenPhongBan());
     }
 
 

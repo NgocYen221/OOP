@@ -5,7 +5,9 @@
 package com.yen.mainn;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -16,8 +18,6 @@ public class QuanLyPhongBan {
     private List<PhongBan> pb = new ArrayList<>();
     
     public void hienThidsNv(int maNhanVien){
-        
-        
     }
 
     public void timKiemNhanVienTheoPB() {
@@ -37,15 +37,40 @@ public class QuanLyPhongBan {
             System.out.println("Khong ton tai nhan vien can tim");
         }
     }
+
      public void hienThi() {
-        pb.forEach(s -> System.out.println(s));
+        pb.forEach(s -> {
+            System.out.print(s);
+            if (s.getNvql()!=null)
+                System.out.print(s.getNvql());
+            else {
+                System.out.print("NVQL: null\n");
+                System.out.println();
+            }
+        });
     }
      
-    public void themPB(PhongBan p){
-        this.pb.add(p);
+    public void themPB(PhongBan... p){
+        this.pb.addAll(Arrays.asList(p));
     }
 
-   
+    public List<PhongBan> timPhongBan(String tuKhoa) {
+        return this.pb.stream().filter(s -> s.getTenPhongBan().contains(tuKhoa)== true).collect(Collectors.toList());
+    }
+
+    public PhongBan timPhongBanTheoTen(String tuKhoa) {
+        for (PhongBan p : pb)
+            if (p.getTenPhongBan().equals(tuKhoa))
+                return p;
+        return null;
+//        return this.pb.stream().filter(s -> s.getTenPhongBan().equals(tuKhoa)== true).findFirst().get();
+    }
+
+    public void xoaPB(List<PhongBan> d) {
+        for (PhongBan p : d) {
+            this.pb.remove(p);
+        }
+    }
 
     /**
      * @return the pb
