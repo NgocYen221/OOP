@@ -15,21 +15,23 @@ import javax.xml.crypto.Data;
  * @author DELL
  */
 public class NhanVienQuanLy extends NhanVien{
-    private Date ngayNhamChuc = null;
+    private Date ngayNhamChuc;
     private int demSoPhongBan=0;
     private List<PhongBan> pb = new ArrayList<>();
-    
-    public NhanVienQuanLy(String hoTen, String gioiTinh, String ngaySinh, String email) throws ParseException {
+
+    public NhanVienQuanLy(String hoTen, String gioiTinh, String ngaySinh, String email, String ngayNhamChuc) throws ParseException {
         super(hoTen, gioiTinh, ngaySinh, email);
+        this.ngayNhamChuc = CauHinh.f.parse(ngayNhamChuc);
     }
 
-    public NhanVienQuanLy(String hoTen, String gioiTinh, Date ngaySinh, String email) {
+    public NhanVienQuanLy(String hoTen, String gioiTinh, Date ngaySinh, String email, Date ngayNhamChuc) throws ParseException {
         super(hoTen, gioiTinh, ngaySinh, email);
+        this.ngayNhamChuc = ngayNhamChuc;
     }
     
     @Override
     public String toString() {
-        return String.format("%s\nNgay nham chuc: %s\n ",super.toString(), CauHinh.f.format(ngayNhamChuc));
+        return String.format("%s\nNgay nham chuc: %s\nSo phong ban quan ly: %s\n",super.toString(), CauHinh.f.format(ngayNhamChuc), this.demSoPhongBan);
     }
 
     @Override
@@ -49,6 +51,7 @@ public class NhanVienQuanLy extends NhanVien{
         if (pb.size() <= 2) {
             this.ngayNhamChuc = new Date();
             pb.add(p);
+            demSoPhongBan += 1;
         }
         else 
             System.out.println("Danh sach phong ban da du!!!");

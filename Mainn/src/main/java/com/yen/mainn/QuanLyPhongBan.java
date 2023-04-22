@@ -16,9 +16,6 @@ import java.util.stream.Collectors;
 public class QuanLyPhongBan {
 
     private List<PhongBan> pb = new ArrayList<>();
-    
-    public void hienThidsNv(int maNhanVien){
-    }
 
     public void timKiemNhanVienTheoPB() {
         System.out.println("Nhap vao phong ban ");

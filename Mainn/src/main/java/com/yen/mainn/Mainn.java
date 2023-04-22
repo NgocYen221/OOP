@@ -32,8 +32,8 @@ public class Mainn {
         NhanVien nv5 = new ThietKeVien("Nguyen E", "Nu", "5/7/2012", "abc@gmail.com");
         NhanVien nv6 = new LapTrinhVien("Nguyen F", "Nu", "30/7/2012", "abc@gmail.com");
         NhanVien nv7 = new KiemThuVien("Nguyen A G", "Nu", "22/5/2012", "abc@gmail.com");
-        NhanVienQuanLy nv8 = new NhanVienQuanLy("Tran Thi My", "Nu", "12/02/2000","my123@gmail.com");
-        NhanVienQuanLy nv9 = new NhanVienQuanLy("Phan Thi Nga", "nu", "01/01/2001","abc@gmail.com");
+        NhanVienQuanLy nv8 = new NhanVienQuanLy("Tran Thi My", "Nu", "12/02/2000","my123@gmail.com", "20/01/2022");
+        NhanVienQuanLy nv9 = new NhanVienQuanLy("Phan Thi Nga", "nu", "01/01/2001","abc@gmail.com", "10/01/2023");
         //them nv vao lop quan ly
         qlnv.themNV(nv0, nv1, nv2, nv3, nv4, nv5, nv6, nv7, nv8, nv9);
         //Tao danh sach nv cho du an 
@@ -99,33 +99,7 @@ public class Mainn {
         qlpb.themPB(p1, p2, p3, p4);
         p1.themNVQL(nv8);
         p2.themNVQL(nv9);
-//        qlda.themDuAnMoi();
-//        qlda.hienThi();
-//        System.out.println("------Sap xep du an theo kinh phi dau tu---------");
-//        qlda.sapXep();
-//        qlda.hienThi();
-//        System.out.println("------Tim du an theo ten---------");
-//        qlda.timDuAnTheoTen().forEach(s -> System.out.println(s));
-//        System.out.println("------Tim du an theo ngay bat dau---------");
-//        qlda.timDuAnTheoNgayBatDau().forEach(s -> System.out.println(s));
-        
-       
-//        System.out.printf("Luong : %.1f\n",nv.tinhLuong());
-//        
-//        System.out.print(nv1);
-//        System.out.printf("Luong : %.1f\n",nv1.tinhLuong());
-//        
-//        System.out.print(nv2);
-//        System.out.printf("Luong: %.1f\n",nv2.tinhLuong());
-//        
-//        System.out.print(nv3);
-//        System.out.printf("Luong: %.1f\n",nv3.tinhLuong());
-        
-//        
-        
-//        qlnv.hienThi();
-//        qlnv.hienThiDsTn(2);
-//
+//        System.out.println(nv0.getDs().size());
         String tenDuAn;
         int nhap;
         do {
@@ -146,7 +120,8 @@ public class Mainn {
             System.out.println("14.Xem danh sach nhan vien");
             System.out.println("15.Xem danh sach phong ban");
             System.out.println("16.Xem danh sach phong ban cua 1 nhan vien quan ly");
-            System.out.println("17.Ban chon thoat");
+            System.out.println("17.Them/Xoa nhan vien");
+            System.out.println("18.Ban chon thoat");
             System.out.println("Chon phuong thuc: ");
             nhap = Integer.parseInt(CauHinh.sc.nextLine());
             switch (nhap) {
@@ -165,6 +140,7 @@ public class Mainn {
                         chon = Integer.parseInt(CauHinh.sc.nextLine());
                         switch (chon) {
                             case 1: {
+                                DuAn damoi = null;
                                 Date tgbd, tgkt;
                                 String nbd, nkt, ten;
                                 int ngay, thang, nam, dem = 0, dem1 = 0;
@@ -212,20 +188,25 @@ public class Mainn {
                                         int manv = Integer.parseInt(CauHinh.sc.nextLine());
                                         if (qlnv.timKiemNhanVien(manv) != null) {
                                             if (dsnv.isEmpty()) {
-                                                dsnv.add(qlnv.timKiemNhanVien(manv));
-                                                System.out.println(dsnv.size());
+                                                if (qlnv.timKiemNhanVien(manv).getDs().size() <= 3) {
+                                                    dsnv.add(qlnv.timKiemNhanVien(manv));
+                                                    qlnv.timKiemNhanVien(manv).themDA(damoi);
+                                                }
+                                                else
+                                                    System.out.println();
                                             } else {
                                                 for (NhanVien n : dsnv)
                                                     if (n.getMaNV() != manv) {
                                                         dsnv.add(qlnv.timKiemNhanVien(manv));
+                                                        qlnv.timKiemNhanVien(manv).themDA(damoi);
                                                         break;
                                                     } else
                                                         System.out.println("Nhan vien nay da duoc them");
                                             }
                                         } else
                                             System.out.println("Nhan vien khong co trong danh sach");
-                                    } while (dsnv.size() <= 5);
-                                    DuAn damoi = new DuAn(ten, tgbd, tgkt, kp, dsnv);
+                                    } while (dsnv.size() < 5);
+                                    damoi = new DuAn(ten, tgbd, tgkt, kp, dsnv);
                                     qlda.themDuAn(damoi);
                                     System.out.println("Them du an thanh cong");
                                 } else
@@ -235,8 +216,8 @@ public class Mainn {
                             case 2:
                                 System.out.println("Nhap ten du an can xoa:");
                                 tenDuAn = CauHinh.sc.nextLine();
-                                if (qlda.timDuAn(tenDuAn).size() > 0) {
-                                    qlda.xoaDuAn(qlda.timDuAn(tenDuAn));
+                                if (qlda.timDuAnTheoTen(tenDuAn) != null) {
+                                    qlda.xoaDuAn(qlda.timDuAnTheoTen(tenDuAn));
                                     System.out.println("Xoa du an thanh cong");
                                 } else
                                     System.out.println("Khong co ten du an muon xoa");
@@ -643,6 +624,7 @@ public class Mainn {
                                 break;
                         }
                     } while (chon > 0 && chon < 4);
+                    break;
                 }
                 case 11:
                     //Them/xoa phong ban
@@ -682,12 +664,11 @@ public class Mainn {
                             default:
                                 System.out.print("Ban chon thoat");
                         }
-                    } while (chon > 0 && chon < 5);
+                    } while (chon > 0 && chon < 4);
                     break;
                 }
                 case 12:
                     //Them/xoa nguoi quan ly cho phong ban
-                    // con thieu nguoi xoa nguoi quan ly
                 {
                     int chon;
                     do {
@@ -705,8 +686,18 @@ public class Mainn {
                                 if (qlnv.hienThiDSNVQL(tennv) != null) {
                                     System.out.println("Nhap ten phong ban ban muon them quan ly: ");
                                     String tenpb = CauHinh.sc.nextLine();
-                                    if (qlpb.timPhongBanTheoTen(tenpb) != null)
-                                        qlpb.timPhongBanTheoTen(tenpb).themNVQL((NhanVienQuanLy) qlnv.hienThiDSNVQL(tennv));
+                                    if (qlpb.timPhongBanTheoTen(tenpb) != null) {
+                                        if (qlpb.timPhongBanTheoTen(tenpb).getNvql() == null) {
+                                            if (((NhanVienQuanLy) qlnv.hienThiDSNVQL(tennv)).getPb().size() < 2) {
+                                                qlpb.timPhongBanTheoTen(tenpb).themNVQL((NhanVienQuanLy) qlnv.hienThiDSNVQL(tennv));
+                                                System.out.println("Them nguoi quan ly thanh cong");
+                                            }
+                                            else
+                                                System.out.println("Nhan vien nay da quan ly du 2 phong ban");
+                                        }
+                                        else
+                                            System.out.println("Phong nay da co nguoi quan ly");
+                                    }
                                     else
                                         System.out.println("Khong co phong ban ban can!!!");
                                 } else
@@ -762,6 +753,46 @@ public class Mainn {
                     break;
                 }
                 case 17:
+                    //them/xoa nhan vien
+                {
+                    int chon;
+                    do {
+                        System.out.println("\n<------------Menu them/xoa nhan vien------------>");
+                        System.out.println("1.Them nhan vien");
+                        System.out.println("2.Xoa nhan vien");
+                        System.out.println("3.Xem ds nhan vien");
+                        System.out.println("4.Ban chon thoat");
+                        System.out.println("Chon phuong thuc: ");
+                        chon = Integer.parseInt(CauHinh.sc.nextLine());
+                        switch (chon) {
+                            case 1:
+                                //Them nhan vien
+                            {
+                                qlnv.nhapNVMoi();
+                                break;
+                            }
+                            case 2:
+                                //Xoa nhan vien
+                            {
+                                System.out.println("Nhap ten nhan vien can xoa:");
+                                String tenPB = CauHinh.sc.nextLine();
+                                if (qlnv.timKiemNhanVien(tenPB) != null) {
+                                    qlnv.xoaNV(qlnv.timKiemNhanVien(tenPB));
+                                    System.out.println("Xoa nhan vien thanh cong");
+                                } else
+                                    System.out.println("Khong co ten nhan vien muon xoa");
+                                break;
+                            }
+                            case 3:
+                                qlnv.hienThiDSNV();
+                                break;
+                            default:
+                                System.out.print("Ban chon thoat");
+                        }
+                    } while (chon > 0 && chon < 4);
+                    break;
+                }
+                case 18:
                     // Ban chon thoat
                     System.out.println("Ban chon thoat chuong trinh");
                     return;
@@ -769,7 +800,7 @@ public class Mainn {
                     throw new AssertionError();
             }
 
-        } while (nhap > 0 && nhap < 17);
+        } while (nhap > 0 && nhap < 18);
     }
 
 }

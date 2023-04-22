@@ -69,6 +69,8 @@ public abstract class NhanVien {
     public void themDA(DuAn d) {
         if  (dsda.size() <=3)
             dsda.add(d);
+        else
+            System.out.println("Nhan vien da tham gia du 3 du an");
     }
 
     public void themTN(ThanNhan e){

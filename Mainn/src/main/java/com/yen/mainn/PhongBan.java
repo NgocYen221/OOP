@@ -25,13 +25,13 @@ public class PhongBan {
 
 
     public void themNVQL(NhanVienQuanLy nvql){
-        if (this.nvql == null)
-            if(nvql.getPb().size()<2) {
-                this.setNvql(nvql);
+        if (this.nvql == null) {
+//            if(nvql.getPb().size()<2) {
+            this.nvql = nvql;
             nvql.getPb().add(this);
             nvql.setNgayNhamChucData(new Date());
-        } else {
-            System.out.println("Khong the them nhan vien vi nhan vien chi duoc quan ly toi da 2 phong ban");
+//        } else {
+//            System.out.println("Khong the them nhan vien vi nhan vien chi duoc quan ly toi da 2 phong ban");
         }
     }
 

@@ -27,9 +27,10 @@ public class QuanLyDuAn {
         this.ds.add(da);
     }
 
-    public void xoaDuAn(List<DuAn> d) {
-        for (DuAn da : d) {
-            this.ds.remove(da);
+    public void xoaDuAn(DuAn d) {
+        for (int i=0; i<ds.size();i++) {
+            if (ds.get(i).getTenDuAn().equals(d.getTenDuAn()))
+                this.ds.remove(ds.get(i));
         }
     }
 

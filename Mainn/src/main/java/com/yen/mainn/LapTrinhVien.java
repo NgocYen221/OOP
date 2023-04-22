@@ -42,8 +42,6 @@ public class LapTrinhVien extends NhanVien{
         System.out.println("Luong: ");
         return heso; //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
     @Override
     public double tinhLuong() {

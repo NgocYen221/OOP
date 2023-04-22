@@ -33,8 +33,12 @@ public class QuanLyNhanVien {
     public void themNV(NhanVien n) {
         this.nv.add(n);
     } 
-    
-    public NhanVien nhapNVMoi() throws ParseException{
+
+    public void xoaNV(NhanVien n) {
+        nv.remove(n);
+    }
+
+    public void nhapNVMoi() throws ParseException{
         System.out.println("Nhap ten nhan vien moi: ");
         String hoTen = CauHinh.sc.nextLine();
         System.out.println("Gioi tinh: ");
@@ -59,7 +63,7 @@ public class QuanLyNhanVien {
         ngaySinh = CauHinh.f.parse(nSinh);
         System.out.println("Email: ");
         String email = CauHinh.sc.nextLine();
-        return new NhanVienThuong(hoTen, gioiTinh, ngaySinh, email);
+        nv.add(new NhanVienThuong(hoTen, gioiTinh, ngaySinh, email));
     }
     
     public NhanVien timKiemNhanVien(int ma) {
@@ -193,34 +197,34 @@ public class QuanLyNhanVien {
         });
     }
 
-    public void xuatTn() {
-        System.out.println("Nhap ma nhan vien");
-        int maNV = CauHinh.sc.nextInt();
-        boolean ktra = false;
-        for (NhanVien nhanVien : this.nv) {
-            if (nhanVien.getMaNV() == (maNV)) {
-                nhanVien.hienThiTN();
-                ktra = true;
-                break;
-            }
-        }
-        if (ktra) {
-                System.out.println("Xuat than nhan thanh cong");
-            } else {
-                System.out.println("Khong co ma nhan vien hop le");
-            }
-
-    }
-    
-    public void hienThiDSTN(int maNhanVien) {
-        System.out.printf("Ma nhan vien: %d\n",maNhanVien);
-        for (NhanVien nv : this.nv) {
-            if (nv.getMaNV() == maNhanVien) {
-                nv.hienThiTN();
-            }
-        }
-    }
-    
+//    public void xuatTn() {
+//        System.out.println("Nhap ma nhan vien");
+//        int maNV = CauHinh.sc.nextInt();
+//        boolean ktra = false;
+//        for (NhanVien nhanVien : this.nv) {
+//            if (nhanVien.getMaNV() == (maNV)) {
+//                nhanVien.hienThiTN();
+//                ktra = true;
+//                break;
+//            }
+//        }
+//        if (ktra) {
+//                System.out.println("Xuat than nhan thanh cong");
+//            } else {
+//                System.out.println("Khong co ma nhan vien hop le");
+//            }
+//
+//    }
+//
+//    public void hienThiDSTN(int maNhanVien) {
+//        System.out.printf("Ma nhan vien: %d\n",maNhanVien);
+//        for (NhanVien nv : this.nv) {
+//            if (nv.getMaNV() == maNhanVien) {
+//                nv.hienThiTN();
+//            }
+//        }
+//    }
+//
     public void timKiemNhanVienTheoNgaySinh(String date) {
         CauHinh.f.setLenient(false);
         boolean ktra = true;
@@ -244,7 +248,7 @@ public class QuanLyNhanVien {
 
     public void xemDACuaMotNVDangThucHien() {
         System.out.print("Nhap ma nhan vien");
-        int maNV = CauHinh.sc.nextInt();
+        int maNV = Integer.parseInt(CauHinh.sc.nextLine());
         for (NhanVien nhanVien : this.nv) {
             if (nhanVien.getMaNV() == maNV) {
                 for (DuAn duAn : nhanVien.getDs()) {
