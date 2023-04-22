@@ -649,7 +649,7 @@ public class Mainn {
                 {
                     int chon;
                     do {
-                        System.out.println("\n<------------Menu them/sua/xoa phong ban------------>");
+                        System.out.println("\n<------------Menu them/xoa phong ban------------>");
                         System.out.println("1.Them phong ban");
                         System.out.println("2.Xoa phong ban");
                         System.out.println("3.Xem ds phong ban");
@@ -689,19 +689,45 @@ public class Mainn {
                     //Them/xoa nguoi quan ly cho phong ban
                     // con thieu nguoi xoa nguoi quan ly
                 {
-                    System.out.println("Nhap ten nhan vien quan ly: ");
-                    String tennv = CauHinh.sc.nextLine();
-                    if (qlnv.hienThiDSNVQL(tennv) != null) {
-                        System.out.println("Nhap ten phong ban ban muon them quan ly: ");
-                        String tenpb = CauHinh.sc.nextLine();
-                        if (qlpb.timPhongBanTheoTen(tenpb) != null)
-                            qlpb.timPhongBanTheoTen(tenpb).themNVQL((NhanVienQuanLy) qlnv.hienThiDSNVQL(tennv));
-                        else
-                            System.out.println("Khong co phong ban ban can!!!");
-                    } else
-                        System.out.println("Khong ten nhan vien quan ly ban muon!!!");
-                }
+                    int chon;
+                    do {
+                        System.out.println("\n<------------Menu them/xoa phong ban------------>");
+                        System.out.println("1.Them nguoi quan ly cho phong ban");
+                        System.out.println("2.Xoa nguoi quan ly cho phong ban");
+                        System.out.println("3.Xem ds phong ban");
+                        System.out.println("4.Ban chon thoat");
+                        System.out.println("Chon phuong thuc: ");
+                        chon = Integer.parseInt(CauHinh.sc.nextLine());
+                        switch (chon) {
+                            case 1: {
+                                System.out.println("Nhap ten nhan vien quan ly: ");
+                                String tennv = CauHinh.sc.nextLine();
+                                if (qlnv.hienThiDSNVQL(tennv) != null) {
+                                    System.out.println("Nhap ten phong ban ban muon them quan ly: ");
+                                    String tenpb = CauHinh.sc.nextLine();
+                                    if (qlpb.timPhongBanTheoTen(tenpb) != null)
+                                        qlpb.timPhongBanTheoTen(tenpb).themNVQL((NhanVienQuanLy) qlnv.hienThiDSNVQL(tennv));
+                                    else
+                                        System.out.println("Khong co phong ban ban can!!!");
+                                } else
+                                    System.out.println("Khong ten nhan vien quan ly ban muon!!!");
+                                break;
+                            }
+                            case 2:
+                                System.out.println("Nhap ten phong ban ban muon them quan ly: ");
+                                String tenpb = CauHinh.sc.nextLine();
+                                if (qlpb.timPhongBanTheoTen(tenpb) != null)
+                                    qlpb.timPhongBanTheoTen(tenpb).xoaNVQL();
+                                else
+                                    System.out.println("Khong co ten phong ban muon xoa nguoi quan ly");
+                                break;
+                            case 3:
+                                qlpb.hienThi();
+                                break;
+                        }
+                    } while (chon > 0 && chon < 4);
                     break;
+                }
                 case 13:
                     // Xem danh sach du an
                 {

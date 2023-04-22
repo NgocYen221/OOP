@@ -35,6 +35,13 @@ public class PhongBan {
         }
     }
 
+    public void xoaNVQL(){
+        if (this.nvql != null) {
+            nvql.getPb().remove(this);
+            this.setNvql(null);
+        }
+    }
+
     public void themNV(NhanVien n){
         this.getNv().add(n);
     }

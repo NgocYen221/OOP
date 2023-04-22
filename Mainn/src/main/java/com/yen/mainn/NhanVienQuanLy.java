@@ -53,6 +53,10 @@ public class NhanVienQuanLy extends NhanVien{
         else 
             System.out.println("Danh sach phong ban da du!!!");
     }
+
+    public void xoaPB(PhongBan p) {
+            pb.remove(p);
+    }
     
     public void hienthiDSPB() {
         pb.forEach(s -> {
