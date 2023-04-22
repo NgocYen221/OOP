@@ -32,10 +32,10 @@ public class Mainn {
         NhanVien nv5 = new ThietKeVien("Nguyen E", "Nu", "5/7/2012", "abc@gmail.com");
         NhanVien nv6 = new LapTrinhVien("Nguyen F", "Nu", "30/7/2012", "abc@gmail.com");
         NhanVien nv7 = new KiemThuVien("Nguyen A G", "Nu", "22/5/2012", "abc@gmail.com");
-        NhanVien nv8 = new NhanVienQuanLy("Tran Thi My", "Nu", "12/02/2000","my123@gmail.com");
-        NhanVien nv9 = new NhanVienQuanLy("Phan Thi Nga", "nu", "01/01/2001","abc@gmail.com");
+        NhanVienQuanLy nv8 = new NhanVienQuanLy("Tran Thi My", "Nu", "12/02/2000","my123@gmail.com");
+        NhanVienQuanLy nv9 = new NhanVienQuanLy("Phan Thi Nga", "nu", "01/01/2001","abc@gmail.com");
         //them nv vao lop quan ly
-        qlnv.themNV(nv0, nv1, nv2, nv3, nv4, nv5, nv6, nv7, nv8);
+        qlnv.themNV(nv0, nv1, nv2, nv3, nv4, nv5, nv6, nv7, nv8, nv9);
         //Tao danh sach nv cho du an 
         List<NhanVien> ds = new ArrayList<>();
         ds.add(nv0);
@@ -97,6 +97,8 @@ public class Mainn {
         p3.themNV(nv7);
         p4.themNV(nv0);
         qlpb.themPB(p1, p2, p3, p4);
+        p1.themNVQL(nv8);
+        p2.themNVQL(nv9);
 //        qlda.themDuAnMoi();
 //        qlda.hienThi();
 //        System.out.println("------Sap xep du an theo kinh phi dau tu---------");
