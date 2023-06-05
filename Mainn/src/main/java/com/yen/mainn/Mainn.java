@@ -53,7 +53,7 @@ public class Mainn {
         ds1.add(nv7);
         
         //Tao du an 
-        DuAn da = new DuAn("Xay dung pham mem bao mat thong tin", "22/01/2023", "22/05/2023", 10, ds);
+        DuAn da = new DuAn("Xay dung phan mem bao mat thong tin", "22/01/2023", "22/05/2023", 10, ds);
         //them du an cho nhan vien
         nv0.themDA(da);
         nv1.themDA(da);
@@ -61,7 +61,7 @@ public class Mainn {
         nv5.themDA(da);
         nv7.themDA(da);
         //tao du an 1
-        DuAn da1 = new DuAn("Xay dung pham mem an toan va bao mat", "10/04/2023", "10/05/2023", 15, ds1);
+        DuAn da1 = new DuAn("Xay dung phan mem an toan va bao mat", "10/04/2023", "10/05/2023", 15, ds1);
 
 //        DuAn da1 = new DuAn("Xay dung mo hinh giam sat hoc tap", "22/01/2023", "22/05/2023", 20, ds1);
         //them du an cho nhan vien 
@@ -98,7 +98,9 @@ public class Mainn {
         p4.themNV(nv0);
         qlpb.themPB(p1, p2, p3, p4);
         p1.themNVQL(nv8);
+        nv8.themPB(p1);
         p2.themNVQL(nv9);
+        nv9.themPB(p2);
 //        System.out.println(nv0.getDs().size());
         String tenDuAn;
         int nhap;
@@ -140,7 +142,7 @@ public class Mainn {
                         chon = Integer.parseInt(CauHinh.sc.nextLine());
                         switch (chon) {
                             case 1: {
-                                DuAn damoi = null;
+                                DuAn damoi = new DuAn();
                                 Date tgbd, tgkt;
                                 String nbd, nkt, ten;
                                 int ngay, thang, nam, dem = 0, dem1 = 0;
@@ -183,30 +185,41 @@ public class Mainn {
                                     System.out.println("===Danh sach nhan vien===");
                                     qlnv.hienThiDSNV();
                                     List<NhanVien> dsnv = new ArrayList<>();
+                                    int manv;
+
                                     do {
                                         System.out.println("Nhap ma nhan vien bn muon them: ");
-                                        int manv = Integer.parseInt(CauHinh.sc.nextLine());
+                                        manv = Integer.parseInt(CauHinh.sc.nextLine());
                                         if (qlnv.timKiemNhanVien(manv) != null) {
                                             if (dsnv.isEmpty()) {
-                                                if (qlnv.timKiemNhanVien(manv).getDs().size() <= 3) {
+                                                if (qlnv.timKiemNhanVien(manv).getDs().size() < 3) {
                                                     dsnv.add(qlnv.timKiemNhanVien(manv));
-                                                    qlnv.timKiemNhanVien(manv).themDA(damoi);
                                                 }
                                                 else
-                                                    System.out.println();
+                                                    System.out.println("Nhan vien da tham gia du 3 du an");
                                             } else {
-                                                for (NhanVien n : dsnv)
-                                                    if (n.getMaNV() != manv) {
-                                                        dsnv.add(qlnv.timKiemNhanVien(manv));
-                                                        qlnv.timKiemNhanVien(manv).themDA(damoi);
-                                                        break;
-                                                    } else
+                                                boolean isExited = false;
+                                                for (int i=0; i<dsnv.size();i++)
+                                                    if (dsnv.get(i).getMaNV() == manv) {
+                                                        isExited = true;
                                                         System.out.println("Nhan vien nay da duoc them");
+                                                        break;
+                                                    }
+                                                if (!isExited) {
+                                                    if (qlnv.timKiemNhanVien(manv).getDs().size() < 3) {
+                                                        dsnv.add(qlnv.timKiemNhanVien(manv));
+                                                    }
+                                                    else
+                                                        System.out.println("Nhan vien da tham gia du 3 du an");
+                                                }
                                             }
                                         } else
                                             System.out.println("Nhan vien khong co trong danh sach");
                                     } while (dsnv.size() < 5);
                                     damoi = new DuAn(ten, tgbd, tgkt, kp, dsnv);
+                                    for (int i = 0; i < dsnv.size(); i++) {
+                                        qlnv.timKiemNhanVien(dsnv.get(i).getMaNV()).themDA(damoi);
+                                    }
                                     qlda.themDuAn(damoi);
                                     System.out.println("Them du an thanh cong");
                                 } else
@@ -326,7 +339,6 @@ public class Mainn {
                 }
                 case 4:
                     // Xem danh sach du an/danh sach du an dang hoat dong cua 1 nhan vien
-                    // con vuong dsda dang hd
                 {
                     int chonds;
                     do {
@@ -596,10 +608,13 @@ public class Mainn {
                             case 1: {
                                 System.out.println("=====Danh sach du an=====");
                                 qlda.hienThi();
-                                System.out.println("Nhap ten du an ma ban muon chon nguoi quan ly");
+                                System.out.println("Nhap ten du an ma ban muon chon nguoi chu nhiem");
                                 String tenDA = CauHinh.sc.nextLine();
                                 if (qlda.timDuAnTheoTen(tenDA) != null)
-                                    qlda.timDuAnTheoTen(tenDA).chonNguoiQL();
+                                    if (qlda.timDuAnTheoTen(tenDA).getNguoiQL() == null)
+                                        qlda.timDuAnTheoTen(tenDA).chonNguoiQL();
+                                    else
+                                        System.out.println("Du an nay da co nguoi chu nhiem");
                                 else
                                     System.out.println("Ten du an ban nhap khong co!!!");
                                 break;
@@ -607,11 +622,15 @@ public class Mainn {
                             case 2:
                                 System.out.println("=====Danh sach du an=====");
                                 qlda.hienThi();
-                                System.out.println("Nhap ten du an ma ban muon chon nguoi quan ly");
+                                System.out.println("Nhap ten du an ma ban muon xoa nguoi chu nhiem");
                                 String tenDACanXoa = CauHinh.sc.nextLine();
                                 if (qlda.timDuAnTheoTen(tenDACanXoa) != null) {
-                                    qlda.timDuAnTheoTen(tenDACanXoa).xoaNgQL();
-                                    System.out.println("Xoa thanh cong");
+                                    if (qlda.timDuAnTheoTen(tenDACanXoa).getNguoiQL() != null) {
+                                        qlda.timDuAnTheoTen(tenDACanXoa).xoaNgQL();
+                                        System.out.println("Xoa thanh cong");
+                                    }
+                                    else
+                                        System.out.println("Du an khong co nguoi chu nhiem de xoa");
                                 }
                                 else
                                     System.out.println("Ten du an ban nhap khong co!!!");

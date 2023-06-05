@@ -50,7 +50,7 @@ public class CauHinh {
     public static String ktHopLe(int day, int month, int year) {
 
         int isDayMax = ktMonth(month, year);
-        if(isDayMax != -1 && (day > 0 && day < isDayMax))
+        if(isDayMax != -1 && (day > 0 && day <= isDayMax))
              return String.format("%d/%d/%d",day, month, year);
         return "";
     }

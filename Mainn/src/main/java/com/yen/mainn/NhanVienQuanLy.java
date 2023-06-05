@@ -59,6 +59,7 @@ public class NhanVienQuanLy extends NhanVien{
 
     public void xoaPB(PhongBan p) {
             pb.remove(p);
+            demSoPhongBan -= 1;
     }
     
     public void hienthiDSPB() {

@@ -193,7 +193,7 @@ public class QuanLyNhanVien {
                 System.out.println("=====Danh sach than nhan=====");
                 s.hienThiTN();
             }
-            System.out.println();
+            System.out.println("--------------------------------------------");
         });
     }
 
